@@ -2,6 +2,7 @@
 let timeLeft = 25 * 60;
 let timerInterval = null;
 let isRunning = false;
+let audioPlayer = null;
 
 const normalBtn = document.getElementById('btn-normal');
 const pomodoroBtn = document.getElementById('btn-pomodoro');
@@ -33,7 +34,7 @@ function startTimer() {
         if (timeLeft === 0) {
             clearInterval(timerInterval);
             isRunning = false;
-            alert('Time is up!');  // Optional: notify user
+            playSound();  // ADD THIS LINE
         }
     }, 1000);
 
@@ -51,6 +52,27 @@ function stopTimer() {
 
     // Update display
     timerDisplay.textContent = FormatTime(timeLeft);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+  stopMusic();  // ADD THIS LINE - stop music when user clicks stop
+  timeLeft = 25 * 60;
+  timerDisplay.textContent = FormatTime(timeLeft);
+}
+
+// Function to play sound
+function playSound() {
+    audioPlayer = new Audio('notification.mp3');  // Store in variable
+    audioPlayer.play();
+}
+
+function stopMusic() {
+  if (audioPlayer) {
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;  // Reset to beginning
+  }
 }
 
 // Normal Timer Button - ask user for duration
@@ -73,4 +95,9 @@ pomodoroBtn.addEventListener('click', () => {
 // Stop Button - NEW
 stopBtn.addEventListener('click', () => {
     stopTimer();
+});
+
+const stopMusicBtn = document.getElementById('btn-stop-music');
+stopMusicBtn.addEventListener('click', () => {
+  stopMusic();
 });
