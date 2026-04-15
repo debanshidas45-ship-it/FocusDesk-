@@ -1,103 +1,74 @@
+let timer;
+let totalSeconds = 0;
 
-let timeLeft = 25 * 60;
-let timerInterval = null;
-let isRunning = false;
-let audioPlayer = null;
+const alarmSound = new Audio("https://www.soundjay.com/buttons/beep-07.mp3");
+const endMusic = new Audio("notification.mp3");
 
-const normalBtn = document.getElementById('btn-normal');
-const pomodoroBtn = document.getElementById('btn-pomodoro');
-const stopBtn = document.getElementById('btn-stop');
-const timerDisplay = document.getElementById('timer-display');
+endMusic.loop = true; // keeps playing until stopped
 
-function FormatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+function editTime() {
+    document.getElementById("editBox").classList.toggle("hidden");
+}
+
+function setTimer() {
+    let h = parseInt(document.getElementById("hours").value) || 0;
+    let m = parseInt(document.getElementById("minutes").value) || 0;
+    let s = parseInt(document.getElementById("seconds").value) || 0;
+
+    totalSeconds = h * 3600 + m * 60 + s;
+
+    // ✅ Close edit after setting
+    document.getElementById("editBox").classList.add("hidden");
+
+    updateDisplay();
+    startTimer();
 }
 
 function startTimer() {
-    // Don't start if already running
-    if (isRunning) return;
+    clearInterval(timer);
 
-    // Mark as running
-    isRunning = true;
+    timer = setInterval(() => {
+        if (totalSeconds <= 0) {
+            clearInterval(timer);
 
-    // Start countdown loop - runs every 1000ms (1 second)
-    timerInterval = setInterval(() => {
-        // Decrease time by 1 second
-        timeLeft--;
+            alarmSound.play().catch(() => { });
 
-        // Update display with new time
-        timerDisplay.textContent = FormatTime(timeLeft);
+            // 🎵 Start music
+            endMusic.currentTime = 0;
+            endMusic.play().catch(() => { });
 
-        // Stop when reaches 0
-        if (timeLeft === 0) {
-            clearInterval(timerInterval);
-            isRunning = false;
-            playSound();  // ADD THIS LINE
+            // 👇 Show stop button
+            document.getElementById("stopMusicBtn").classList.remove("hidden");
+
+        } else {
+            totalSeconds--;
+            updateDisplay();
         }
     }, 1000);
+}
+function pauseTimer() {
+    clearInterval(timer);
+}
+function resetTimer() {
+    clearInterval(timer);
+    totalSeconds = 0;
+    updateDisplay();
 
+    stopMusic(); // stop if playing
 }
 
-function stopTimer() {
-    // Stop the countdown loop
-    clearInterval(timerInterval);
+function updateDisplay() {
+    let h = Math.floor(totalSeconds / 3600);
+    let m = Math.floor((totalSeconds % 3600) / 60);
+    let s = totalSeconds % 60;
 
-    // Mark as not running
-    isRunning = false;
-
-    // Reset time back to 25 minutes
-    timeLeft = "00" * "00";
-
-    // Update display
-    timerDisplay.textContent = FormatTime(timeLeft);
-}
-
-function stopTimer() {
-  clearInterval(timerInterval);
-  isRunning = false;
-  stopMusic();  // ADD THIS LINE - stop music when user clicks stop
-  timeLeft = 25 * 60;
-  timerDisplay.textContent = FormatTime(timeLeft);
-}
-
-// Function to play sound
-function playSound() {
-    audioPlayer = new Audio('notification.mp3');  // Store in variable
-    audioPlayer.play();
+    document.getElementById("display").innerText =
+        `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
 function stopMusic() {
-  if (audioPlayer) {
-    audioPlayer.pause();
-    audioPlayer.currentTime = 0;  // Reset to beginning
-  }
+    endMusic.pause();
+    endMusic.currentTime = 0;
+
+    document.getElementById("stopMusicBtn").classList.add("hidden");
 }
-
-// Normal Timer Button - ask user for duration
-normalBtn.addEventListener('click', () => {
-    const minutes = prompt('How many minutes do you want to study?');
-    if (minutes && minutes > 0) {
-        timeLeft = minutes * 60;
-        timerDisplay.textContent = FormatTime(timeLeft);
-        startTimer();
-    }
-});
-
-// Pomodoro Button - use default 25 minutes
-pomodoroBtn.addEventListener('click', () => {
-    timeLeft = 25 * 60;  // 25 minutes
-    timerDisplay.textContent = FormatTime(timeLeft);
-    startTimer();
-});
-
-// Stop Button - NEW
-stopBtn.addEventListener('click', () => {
-    stopTimer();
-});
-
-const stopMusicBtn = document.getElementById('btn-stop-music');
-stopMusicBtn.addEventListener('click', () => {
-  stopMusic();
-});

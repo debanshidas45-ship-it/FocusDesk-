@@ -3,36 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusDesk</title>
+    <title>FouseDesk</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div>
-        <h1>Welcome To FocusDesk</h1>
-        <p>FocusDesk is a lightweight countdown timer designed to
-            boost productivity and help you maintain focus. Whether
-            you're studying for exams, working on projects, or using
-            the Pomodoro technique, FocusDesk provides a simple
-            and intuitive interface to track your work sessions</p>
-    </div>
-
     <div class="container">
+        <h1>🌲 FocusDesk</h1>
 
-        <div id="timer-display">25:00</div>
+        <!-- TIMER DISPLAY -->
+        <div class="time-input">
+            <span id="display">00:00:00</span>
+            <button onclick="editTime()">✏️</button>
+        </div>
 
+        <!-- EDIT BOX -->
+        <div id="editBox" class="hidden">
+            <div class="input-group">
+                <input type="number" id="hours" placeholder="HH">
+                <input type="number" id="minutes" placeholder="MM">
+                <input type="number" id="seconds" placeholder="SS">
+            </div>
+
+            <button class="set-btn" onclick="setTimer()">Set Timer</button>
+        </div>
+
+        <button id="stopMusicBtn" class="hidden" onclick="stopMusic()">🔇 Stop Music</button>
+
+        <!-- CONTROLS -->
+        <div class="controls">
+            <button onclick="pauseTimer()">Pause</button>
+            <button onclick="resetTimer()">Reset</button>
+        </div>
     </div>
 
-    <div class="buttons-section">
-        <button id="btn-normal" class="btn btn-normal">Normal Timer</button>
-        <button id="btn-pomodoro" class="btn btn-pomodoro">Pomodoro Timer</button>
-        <button id="btn-stop" class="btn btn-stop">Stop</button>
-        <button id="btn-stop-music" class="btn btn-stop">Stop Music</button>
-    </div>
-
+    <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 
 </html>

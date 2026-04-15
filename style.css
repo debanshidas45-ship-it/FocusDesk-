@@ -1,113 +1,109 @@
-* {
-  padding: 0.55rem;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 body {
-  background: linear-gradient(90deg, #d99a66, #f5a4d3);
-}
-
-h1 {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') no-repeat center center/cover;
+  height: 100vh;
   display: flex;
-  text-align: center;
   justify-content: center;
-  font-size: 48px;
-  font-family: Poppins, sans-serif;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-  color: #2d3436;
-  margin: 30px 0 15px 0;
-  padding: 0;
-}
-
-p {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 400;
-  font-family: inherit;
-  margin: 0 0 25px 0;
-  padding: 0 20px;
-  color: #666;
-  line-height: 1.6;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 0px;
-  padding: 0;
+  color: white;
 }
 
-#timer-display {
-  padding-top: 0px;
-  width: 450px;
-  height: 190px;
-  background-color: #f5e6d3;
+/* Glass container */
+.container { 
+  background: rgba(0, 0, 0, 0.55);
+  padding: 40px;
   border-radius: 20px;
+  backdrop-filter: blur(12px);
+  text-align: center;
+  width: 350px;
+}
+
+/* TIMER DISPLAY */
+.time-input {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 72px;
-  font-weight: 700;
-  color: #2d3436;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  gap: 15px;
+  margin: 20px 0;
 }
 
-.buttons-section {
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.btn {
-  width: 180px;
-  padding: 15px 30px;
-  font-size: 15px;
-  font-family: poppins, sans-serif;
+#display {
+  font-size: 50px;
   font-weight: bold;
+}
+
+/* EDIT BUTTON */
+.time-input button {
+  padding: 10px;
+  border-radius: 10px;
   border: none;
-  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.30s ease;
 }
 
-.btn-Normal {
-  background-color: #a8d5ff;
-  color: #2d3436;
+/* INPUT AREA */
+.input-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-.btn-Normal:hover {
-  background-color: #7fc3ff;
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+input {
+  width: 70px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
 }
 
-.btn-pomodoro {
-  background-color: #c8e6c9;
-  color: #2d3436;
+/* SET BUTTON (IMPROVED) */
+.set-btn {
+  margin-top: 15px;
+  width: 100%;
+  background: linear-gradient(135deg, #4CAF50, #2e7d32);
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
 }
 
-.btn-pomodoro:hover {
-  background-color: #a5d6a7;
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.set-btn:hover {
+  transform: scale(1.05);
 }
 
-.btn-stop {
-  background-color: #ff6b6b;
-  /* Red color */
-  color: #ffffff;
+/* CONTROLS */
+.controls {
+  margin-top: 25px;
 }
 
-.btn-stop:hover {
-  background-color: #ee5a52;
-  /* Darker red on hover */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.controls button {
+  padding: 12px 20px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* HIDDEN */
+.hidden {
+  display: none;
+}
+
+#stopMusicBtn {
+    margin-top: 15px;
+    background: #e53935;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#stopMusicBtn:hover {
+    transform: scale(1.05);
 }
